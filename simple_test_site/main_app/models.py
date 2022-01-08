@@ -32,8 +32,13 @@ class MyAccountManager(BaseUserManager):
 
 
 class User_Custom_Model(AbstractBaseUser):
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(verbose_name="email", max_length=70, unique=True)
+    username = models.CharField(max_length=50, unique=True, error_messages ={
+                    "unique": "The username you entered is already exists.",
+                    "max_length": "The username you entered is very long. It should not exceed 50 characters",
+                    })
+    email = models.EmailField(verbose_name="email", max_length=70, unique=True, error_messages ={
+                    "unique": "The email address you entered is already exists"
+                    })
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_admin = models.BooleanField(default=True)
