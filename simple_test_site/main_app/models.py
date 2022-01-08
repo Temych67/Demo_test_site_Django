@@ -25,15 +25,20 @@ class MyAccountManager(BaseUserManager):
             username=username,
         )
         user.is_admin = True
+        user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class Account(AbstractBaseUser):
+class User_Custom_Model(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(verbose_name="email", max_length=70, unique=True)
-    is_admin = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
+    is_admin = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
