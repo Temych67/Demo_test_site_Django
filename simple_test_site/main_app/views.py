@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main_app.forms import RegistrationForm
+from main_app.forms import RegistrationForm,AuthenticattionForm
 from django.contrib.auth import login, authenticate, logout
 
 def index(request):
@@ -26,6 +26,27 @@ def registration_view(request):
         context['registration_form'] = form
     return render(request, 'main_app/registration.html', context)
 
+def login_view(request):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        return redirect('home')
+
+    if request.POST:
+        form = AuthenticattionForm(request.POST)
+        if form.is_valid():
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(email=email, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('home_page')
+    else:
+        form = AuthenticattionForm()
+
+    context['login_form'] = form
+    return render(request, 'main_app/login.html', context)
 
 def logout_view(request):
     logout(request)
