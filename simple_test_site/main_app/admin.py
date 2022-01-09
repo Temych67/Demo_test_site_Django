@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 
 class UserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'is_admin')
+    list_display = ('username', 'email', 'is_admin', 'is_email_verified')
     search_fields = ('username', 'email')
 
     filter_horizontal = ()
