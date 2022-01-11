@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends 'main_app_templates/home_page.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
 </style>
 </head>
 <body>
+	{% block content %}
     <div class="container">
          <form class="form-signin" method="post">{% csrf_token %}
 
@@ -44,5 +46,6 @@
                 </div>
          </form>
     </div>
+		{% endblock content %}
 </body>
 </html>

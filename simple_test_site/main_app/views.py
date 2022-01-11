@@ -77,6 +77,8 @@ def login_view(request):
             password = request.POST['password']
             user = authenticate(email=email, password=password)
             if not user.is_email_verified:
+                messages.add_message(request, messages.ERROR,
+                                     'Your email is not verified')
                 return render(request, 'main_app_templates/email_template.html')
             elif user:
                 login(request, user)
@@ -105,8 +107,6 @@ def activate_user(request, uidb64, token):
         user.is_email_verified = True
         user.save()
 
-        messages.add_message(request, messages.SUCCESS,
-                             'Email verified, you can now login')
         return redirect(reverse('login'))
 
-    return render(request, 'authentication/activate-failed.html', {"user": user})
+    return render(request, 'main_app/email_template.html')

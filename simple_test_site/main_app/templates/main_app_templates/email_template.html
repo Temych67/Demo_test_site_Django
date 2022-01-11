@@ -6,5 +6,12 @@
 </head>
 <body>
 <p>We send to you email verification. Please check your email and follow to the link.</p>
+ {% if messages %}
+    {% for message in messages %}
+    <div class="ui {{message.tags}} message">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
 </body>
 </html>
