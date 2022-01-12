@@ -7,13 +7,12 @@ import django_heroku
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['demotestsiteondjango.herokuapp.com', '127.0.0.1']
-
 
 # Application definition
 
@@ -42,7 +41,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 1,
 }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,20 +74,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'simple_test_site.wsgi.application'
 
-
 DATABASES = {
-   'default': {
-      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-      'NAME': config('DATABASESNAME'),
-      'USER': config('DATABASESUSER'),
-      'PASSWORD': config('DATABASESPASSWORD'),
-      'HOST': 'localhost',
-      'PORT': '5432',
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DATABASESNAME'),
+        'USER': config('DATABASESUSER'),
+        'PASSWORD': config('DATABASESPASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 AUTH_USER_MODEL = 'main_app.User_Custom_Model'
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -106,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -122,10 +117,10 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD =  config('EMAIL_HOST_PASSWORD')
-# os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -134,6 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
