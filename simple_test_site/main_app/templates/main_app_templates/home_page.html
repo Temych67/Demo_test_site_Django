@@ -50,6 +50,7 @@
             <div class="text-end">
 
                     {% if request.user.is_authenticated %}
+                        <a type="button" class="btn btn-outline-light me-2" href="{% url 'data_app:create' %}">Create data</a>
                         <a type="button" class="btn btn-outline-light me-2" href="{% url 'logout' %}">Log out</a>
                         <a type="button" class="btn btn-outline-light me-2" href="{% url 'admin:index' %}">link to admin panel</a>
                     {% else %}
