@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from decouple import config
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,7 +12,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['demotestsiteondjango.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -129,3 +130,9 @@ EMAIL_PORT = 587
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
+django_heroku.settings(locals())
