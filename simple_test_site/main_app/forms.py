@@ -24,4 +24,4 @@ class AuthenticattionForm(forms.ModelForm):
             email = self.cleaned_data['email']
             password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
-                raise forms.ValidationError("Invalid login")
+                raise forms.ValidationError("Invalid login. Please check your email and password and try again")

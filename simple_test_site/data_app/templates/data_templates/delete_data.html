@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'main_app_templates/home_page.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div class="row user_container">
+        <div class="col-md-12">
+	         <form action="" method="POST">{% csrf_token %}
+	            <div class="error-template" style="text-align: center;">
+						<h1>Do you want to delete the post "{{ data_post.title}}"?</h1>
+							 <div class="error-actions mt-4">
+	                    		<input type="submit" value="Yes">
+			                     <a class="btn btn-outline-grey waves-effect waves-light" href="/" role="button">Cancel
+			                        <i class="fa fa-android ml-2" aria-hidden="true"></i>
+			                    </a>
+						</div>
+	            </div>
+			</form>
+        </div>
+</div>
+{% endblock content %}
+</body>
+</html>

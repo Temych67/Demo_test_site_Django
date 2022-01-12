@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'main_app_templates/home_page.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail data</title>
+</head>
+<body>
+{% block content %}
+<div class="container user_container">
+	<div class="row">
+		<!-- Data  -->
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+			  <h2 class="card-title">{{data_post.title}}</h2>
+			  <p class="card-text">{{data_post.body|safe}}</p>
+			  {% if data_post.author == request.user %}
+			  	<a href="{% url 'data_app:edit' data_post.slug %}" class="btn btn-primary">Update</a>
+			  	<a href="{% url 'data_app:delete' data_post.slug %}" class="btn btn-primary" style="background-color: red">Delete</a>
+			  {% endif %}
+			</div>
+			<div class="card-footer text-muted">
+			  Updated on {{data_post.date_updated}} by {{data_post.author}}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+</body>
+</html>

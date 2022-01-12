@@ -1,0 +1,33 @@
+
+
+{% if data_posts %}
+<div class="container">
+	<div class="row">
+		<!-- Data Post -->
+		<div class="card m-auto" style="margin-top: 150px;">
+			<div class="card-body mt-2 mb-2">
+				<a href="{% url 'data_app:detail' data_posts.slug %}">
+					<h2 class="card-title">{{data_posts.title}}</h2>
+				</a>
+				<p class="card-text">{{data_posts.body|truncatechars:180}}</p>
+			</div>
+			<div class="card-footer text-muted">
+			  Updated on {{data_posts.date_updated}} by {{data_posts.author}}
+			</div>
+		</div>
+	</div>
+</div>
+{% else %}
+
+<div class="container">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">No results</h2>
+				<p class="card-text">There were no results matching the search: "{{query}}"</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endif %}

@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 class MyAccountManager(BaseUserManager):
@@ -33,12 +37,12 @@ class MyAccountManager(BaseUserManager):
 
 class User_Custom_Model(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True, error_messages={
-                    "unique": "The username you entered is already exists.",
-                    "max_length": "The username you entered is very long. It should not exceed 50 characters",
-                    })
+        "unique": "The username you entered is already exists.",
+        "max_length": "The username you entered is very long. It should not exceed 50 characters",
+    })
     email = models.EmailField(verbose_name="email", max_length=70, unique=True, error_messages={
-                    "unique": "The email address you entered is already exists"
-                    })
+        "unique": "The email address you entered is already exists"
+    })
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_admin = models.BooleanField(default=False)
@@ -60,3 +64,9 @@ class User_Custom_Model(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
