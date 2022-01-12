@@ -7,7 +7,7 @@ import django_heroku
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'simple_test_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DATABASESNAME',
+        'NAME':  config('DATABASESNAME'),
             # config('DATABASESNAME'),
-        'USER': 'DATABASESUSER',
+        'USER': config('DATABASESUSER'),
             # config('DATABASESUSER'),
-        'PASSWORD': 'DATABASESPASSWORD',
+        'PASSWORD': config('DATABASESPASSWORD'),
             # config('DATABASESPASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
