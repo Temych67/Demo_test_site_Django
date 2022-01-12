@@ -30,13 +30,13 @@
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                 {% if request.user.is_authenticated %}
-              <li><p class="nav-link px-2 text-white">Hi {{request.user.username}}</p></li>
                    <li>
                        <button id ="find-me" class="btn btn-light">Show my location</button><br/>
                         <p id = "status"></p>
                         <a id = "map-link" target="_blank"></a>
                    </li>
+                 {% if request.user.is_authenticated %}
+              <li><p class="nav-link px-2 text-white">Hi {{request.user.username}}</p></li>
                 {% endif %}
               <li><a href="{% url 'home_page' %}" class="nav-link px-2 text-secondary">Home</a></li>
 
