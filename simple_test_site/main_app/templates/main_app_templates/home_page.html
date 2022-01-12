@@ -77,12 +77,9 @@
 			<!-- End data posts-->
 
 		<!-- Pagination -->
-		{% include 'snippets/data_post_pagination.html' with data_posts=data_posts %}
+		    {% include 'snippets/data_post_pagination.html' with data_posts=data_posts %}
 		{% endblock content %}
 
-    {% if request.user.is_authenticated %}
-
-    {% endif %}
     <script>
        function geoFindMe() {
 
